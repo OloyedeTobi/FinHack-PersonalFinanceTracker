@@ -1,0 +1,54 @@
+# Build Folders
+bin/
+obj/
+
+# User-specific files
+*.user
+*.userosscache
+*.suo
+.vscode/
+.vs/
+
+# Auto-generated files
+*.Generated.cs
+*.g.cs
+
+# Entity Framework Core Migrations
+Migrations/
+
+# Log files
+*.log
+
+# NuGet Packages
+packages/
+*.nupkg
+*.snupkg
+project.lock.json
+project.fragment.lock.json
+
+# Azure related files
+azure-pipelines.yml
+.azure/
+
+# Database files
+*.mdf
+*.ldf
+*.sql
+*.bak
+
+# Deployment artifacts
+publish/
+*.Publish.xml
+
+# Other common files
+.DS_Store
+Thumbs.db
+
+# Rider specific files
+.idea/
+
+# Windows specific files
+*.db
+*.db-shm
+*.db-wal
+*.pdb
