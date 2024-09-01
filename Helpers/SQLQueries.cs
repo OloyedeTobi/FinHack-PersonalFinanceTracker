@@ -26,7 +26,7 @@ namespace FinanceTracker.Helpers
                 @Gender = @GenderParameter, 
                 @Active = @ActiveParameter, 
                 @JobTitle = @JobTitleParameter,  
-                @UserId = @UserIdParameter";
+                @UserId = NULL";
 
             var parameters = new DynamicParameters();
             parameters.Add("@FirstNameParameter", user.FirstName, DbType.String);
