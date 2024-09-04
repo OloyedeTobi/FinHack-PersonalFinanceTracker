@@ -31,10 +31,24 @@ namespace FinanceTracker.Data
             return connection.QuerySingleOrDefault<T>(sql, parameters);
         }
 
+        public async Task<T> QuerySingleOrDefaultAsync<T>(string sql, object? parameters = null)
+        {
+            using var connection = CreateConnection();
+            return await connection.QuerySingleOrDefaultAsync<T>(sql, parameters);
+        }
+
+
         public bool ExecuteCommand(string sql, object? parameters = null)
         {
             using var connection = CreateConnection();
+            
             return connection.Execute(sql, parameters) > 0;
+        }
+
+        public async Task<bool> ExecuteAsync(string sql, object? parameters = null)
+        {
+            using var connection = CreateConnection();
+            return await connection.ExecuteAsync(sql, parameters) > 0;
         }
     }
 }

@@ -2,20 +2,12 @@ using System.Data;
 using Dapper;
 using FinanceTracker.Data;
 using FinanceTracker.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
-
-
 
 namespace FinanceTracker.Helpers
 {
-    public class SqlQueries
+    public class SqlQueries(IConfiguration config)
     {
-        private readonly DataContext _dapper;
-
-        public SqlQueries(IConfiguration config)
-        {
-            _dapper = new DataContext(config);
-        }
+        private readonly DataContext _dapper = new DataContext(config);
 
         public bool UpsertUser(UserComplete user)
         {
