@@ -41,6 +41,102 @@ namespace FinanceTracker.Helpers
             }
         }
 
+    public bool UpsertAccount(Account account)
+    {
+        const string sql = @"EXEC TutorialAPISchema.spAccount_Upsert
+            @Id = @IdParameter,
+            @UserId = @UserIdParameter, 
+            @Name = @NameParameter, 
+            @Balance = @BalanceParameter, 
+            @AccountType = @AccountTypeParameter, 
+            @CreatedDate = @CreatedDateParameter";
+
+        var parameters = new DynamicParameters();
+        parameters.Add("@IdParameter", account.Id, DbType.Int32);
+        parameters.Add("@UserIdParameter", account.UserId, DbType.Int32);
+        parameters.Add("@NameParameter", account.Name, DbType.String);
+        parameters.Add("@BalanceParameter", account.Balance, DbType.Decimal);
+        parameters.Add("@AccountTypeParameter", account.AccountType, DbType.String);
+        parameters.Add("@CreatedDateParameter", account.CreatedDate, DbType.DateTime);
+
+        try
+        {
+            _dapper.ExecuteCommand(sql, parameters);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+
+    public bool UpsertTransaction(Transaction transaction)
+    {
+        const string sql = @"EXEC TutorialAPISchema.spTransaction_Upsert
+            @Id = @IdParameter,
+            @UserId = @UserIdParameter, 
+            @AccountId = @AccountIdParameter, 
+            @Amount = @AmountParameter, 
+            @Type = @TypeParameter, 
+            @Description = @DescriptionParameter, 
+            @Recurring = @RecurringParameter,
+            @Frequency = @FrequencyParameter
+            @Date = @DateParameter";
+
+        var parameters = new DynamicParameters();
+        parameters.Add("@IdParameter", transaction.Id, DbType.Int32);
+        parameters.Add("@UserIdParameter", transaction.UserId, DbType.Int32);
+        parameters.Add("@AccountIdParameter", transaction.AccountId, DbType.Int32);
+        parameters.Add("@AmountParameter", transaction.Amount, DbType.Decimal);
+        parameters.Add("@TypeParameter", transaction.Category, DbType.String);
+        parameters.Add("@DescriptionParameter", transaction.Description, DbType.String);
+        parameters.Add("@RecurringParameter", transaction.IsRecurring, DbType.Boolean);
+        parameters.Add("@FrequencyParameter", transaction.Description, DbType.String);
+        parameters.Add("@DateParameter", transaction.Date, DbType.DateTime);
+
+        try
+        {
+            _dapper.ExecuteCommand(sql, parameters);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    public bool UpsertBudget(Budget budget)
+    {
+        const string sql = @"EXEC TutorialAPISchema.spBudget_Upsert
+            @Id = @IdParameter,
+            @UserId = @UserIdParameter, 
+            @Amount = @AmountParameter, 
+            @Category = @CategoryParameter, 
+            @StartDate = @StartDateParameter, 
+            @EndDate = @EndDateParameter";
+
+        var parameters = new DynamicParameters();
+        parameters.Add("@IdParameter", budget.Id, DbType.Int32);
+        parameters.Add("@UserIdParameter", budget.UserId, DbType.String);
+        parameters.Add("@AmountParameter", budget.Amount, DbType.Decimal);
+        parameters.Add("@CategoryParameter", budget.Category, DbType.String);
+        parameters.Add("@StartDateParameter", budget.StartDate, DbType.DateTime);
+        parameters.Add("@EndDateParameter", budget.EndDate, DbType.DateTime);
+
+        try
+        {
+            _dapper.ExecuteCommand(sql, parameters);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+
+
     }
 }
 
