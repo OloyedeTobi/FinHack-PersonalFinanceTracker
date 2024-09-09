@@ -1,5 +1,5 @@
 using FinanceTracker.Models;
-using PersonalFinanceTracker.Repositories;
+using FinanceTracker.Repositories;
 using System.Threading.Tasks;
 
 namespace FinanceTracker.Services

@@ -1,9 +1,14 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using FinanceTracker.Services;
+using FinanceTracker.Repositories;
+using Microsoft.Data.SqlClient;
+using System.Data;
 
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -26,9 +31,17 @@ builder.Services.AddCors((options) =>
             });
     });
 
-string? tokenKeyString = builder.Configuration.GetSection("AppSettings:TokenKey").Value;
-Console.WriteLine(tokenKeyString);
 
+string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+
+builder.Services.AddTransient<IDbConnection>(sp => new SqlConnection(connectionString));
+
+
+builder.Services.AddScoped<AccountRepository>(); 
+builder.Services.AddScoped<AccountService>();     
+
+string? tokenKeyString = builder.Configuration.GetSection("AppSettings:TokenKey").Value;
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options => {
         options.TokenValidationParameters = new TokenValidationParameters() 
@@ -42,7 +55,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             };
         });
 
+
 var app = builder.Build();
+
 
 
 if (app.Environment.IsDevelopment())

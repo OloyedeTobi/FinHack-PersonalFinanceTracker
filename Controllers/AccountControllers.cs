@@ -42,14 +42,14 @@ namespace FinanceTracker.Controllers
                 return BadRequest();
 
             await _accountService.UpdateAccount(account);
-            return NoContent();
+            return Ok();
         }
 
         [HttpDelete("DeleteAccount/{id}")]
         public async Task<IActionResult> DeleteAccount(int id)
         {
             await _accountService.DeleteAccount(id);
-            return NoContent();
+            return Ok();
         }
     }
 }
