@@ -92,7 +92,7 @@ namespace FinanceTracker.Helpers
         parameters.Add("@TypeParameter", transaction.Category, DbType.String);
         parameters.Add("@DescriptionParameter", transaction.Description, DbType.String);
         parameters.Add("@RecurringParameter", transaction.IsRecurring, DbType.Boolean);
-        parameters.Add("@FrequencyParameter", transaction.Description, DbType.String);
+        parameters.Add("@FrequencyParameter", transaction.Frequency, DbType.Int32);
         parameters.Add("@DateParameter", transaction.Date, DbType.DateTime);
 
         try

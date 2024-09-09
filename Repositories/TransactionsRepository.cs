@@ -16,20 +16,20 @@ namespace FinanceTracker.Repositories
 
         public async Task<Transaction> GetTransactionById(int id)
         {
-            var sql = "SELECT * FROM Transactions WHERE Id = @Id";
+            var sql = "SELECT * FROM TutorialAPISchema.Transactions WHERE Id = @Id";
             return await _dbConnection.QuerySingleOrDefaultAsync<Transaction>(sql, new { Id = id });
         }
 
         public async Task CreateTransaction(Transaction transaction)
         {
-            var sql = "INSERT INTO Transactions (AccountId, UserId, Amount, Description, Date, Category, IsRecurring, Frequency) " +
+            var sql = "INSERT INTO TutorialAPISchema.Transactions (AccountId, UserId, Amount, Description, Date, Category, IsRecurring, Frequency) " +
                       "VALUES (@AccountId, @UserId, @Amount, @Description, @Date, @Category, @IsRecurring, @Frequency)";
             await _dbConnection.ExecuteAsync(sql, transaction);
         }
 
         public async Task UpdateTransaction(Transaction transaction)
         {
-            var sql = "UPDATE Transactions SET AccountId = @AccountId, UserId = @UserId, Amount = @Amount, " +
+            var sql = "UPDATE TutorialAPISchema.Transactions SET AccountId = @AccountId, UserId = @UserId, Amount = @Amount, " +
                       "Description = @Description, Date = @Date, Category = @Category, IsRecurring = @IsRecurring, Frequency = @Frequency " +
                       "WHERE Id = @Id";
             await _dbConnection.ExecuteAsync(sql, transaction);
@@ -37,7 +37,7 @@ namespace FinanceTracker.Repositories
 
         public async Task DeleteTransaction(int id)
         {
-            var sql = "DELETE FROM Transactions WHERE Id = @Id";
+            var sql = "DELETE FROM TutorialAPISchema.Transactions WHERE Id = @Id";
             await _dbConnection.ExecuteAsync(sql, new { Id = id });
         }
     }

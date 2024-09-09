@@ -30,7 +30,7 @@ namespace FinanceTracker.Repositories
         public async Task UpdateBudget(Budget budget)
         {
             var sql = "UPDATE TutorialAPISchema.Budgets SET UserId = @UserId, Category = @Category, Amount = @Amount, " +
-                      "StartDate = @StartDate, EndDate = @EndDate WHERE Id = @Id";
+                    "StartDate = @StartDate, EndDate = @EndDate WHERE Id = @Id";
             await _dbConnection.ExecuteAsync(sql, budget);
         }
 

@@ -41,7 +41,10 @@ builder.Services.AddTransient<IDbConnection>(sp => new SqlConnection(connectionS
 builder.Services.AddScoped<AccountRepository>(); 
 builder.Services.AddScoped<AccountService>(); 
 builder.Services.AddScoped<BudgetRepository>(); 
-builder.Services.AddScoped<BudgetService>();     
+builder.Services.AddScoped<BudgetService>();  
+builder.Services.AddScoped<TransactionRepository>(); 
+builder.Services.AddScoped<TransactionService>();
+
 
 string? tokenKeyString = builder.Configuration.GetSection("AppSettings:TokenKey").Value;
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
