@@ -72,7 +72,6 @@ The **Personal Finance Tracker API** is a C# and .NET Core 8-based API designed 
 *   **Input Validation:** Prevents SQL injection and XSS attacks.
 *   **Authentication & Authorization:** Implements JWT for secure access.
 *   **Data Encryption:** Sensitive data is encrypted before storage.
-*   **Logging & Monitoring:** Tracks activity and detects anomalies.
 
 ## 📝 Future Enhancements
 
