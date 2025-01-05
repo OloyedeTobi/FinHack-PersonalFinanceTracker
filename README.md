@@ -1,5 +1,7 @@
 # Personal Finance Tracker API
 
+### SECTION 1 - PROJECT OVERVIEW
+
 ## 📌 Overview
 
 The **Personal Finance Tracker API** is a C# and .NET Core 8-based API designed to help users manage their finances efficiently. It provides endpoints for tracking expenses, budgeting, and logging transactions.
@@ -64,3 +66,25 @@ The **Personal Finance Tracker API** is a C# and .NET Core 8-based API designed 
 ├── Program.cs
 └── README.md
 ```
+
+## 🛡️ Security Considerations
+
+*   **Input Validation:** Prevents SQL injection and XSS attacks.
+*   **Authentication & Authorization:** Implements JWT for secure access.
+*   **Data Encryption:** Sensitive data is encrypted before storage.
+*   **Logging & Monitoring:** Tracks activity and detects anomalies.
+
+## 📝 Future Enhancements
+
+*   OAuth2 Support
+*   AI-based Financial Insights
+*   Multi-Currency Support
+
+## 👨‍💻 Contributing
+
+Contributions are welcome! Feel free to submit issues or pull requests.
+
+
+### SECTION 2 - ENDPOINT DOCUMENTATION
+
+### SECTION 3 - DEMO
