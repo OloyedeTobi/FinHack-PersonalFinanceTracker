@@ -18,4 +18,49 @@ The **Personal Finance Tracker API** is a C# and .NET Core 8-based API designed 
 - **Authentication**: Identity Framework / JWT
 
 ## 📂 Project Structure
-
+```
+├── bin
+├── Configurations
+├── Controllers
+│   ├── AccountControllers.cs
+│   ├── AuthControllers.cs
+│   ├── BudgetControllers.cs
+│   └── TransactionControllers.cs
+├── Data
+│   └── DataContext.cs
+├── DTOs
+│   ├── UserLoginConfirmationDTO.cs
+│   ├── UserLoginDTO.cs
+│   └── UserRegistrationDTO.cs
+├── Helpers
+│   ├── AuthHelper.cs
+│   └── SQLQueries.cs
+├── Models
+│   ├── AccountModel.cs
+│   ├── BudgetsModel.cs
+│   ├── TransactionModel.cs
+│   └── UserModel.cs
+├── obj
+│   ├── Debug
+│   ├── project.assets.json
+│   └── project.nuget.cache
+├── Properties
+│   └── launchSettings.json
+├── Repositories
+│   ├── AccountRepository.cs
+│   ├── BudgetRepository.cs
+│   └── TransactionsRepository.cs
+├── Services
+│   ├── AccountServices.cs
+│   ├── BudgetServices.cs
+│   └── TransactionServices.cs
+├── Tests
+├── .gitignore
+├── appsettings.Development.json
+├── appsettings.json
+├── PersonalFinanceTracker.csproj
+├── PersonalFinanceTracker.http
+├── PersonalFinanceTracker.sln
+├── Program.cs
+└── README.md
+```
