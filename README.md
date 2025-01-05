@@ -78,6 +78,7 @@ The **Personal Finance Tracker API** is a C# and .NET Core 8-based API designed 
 *   OAuth2 Support
 *   AI-based Financial Insights
 *   Multi-Currency Support
+*   Advanced Finance tracking for savings and investsments
 
 ## 👨‍💻 Contributing
 
