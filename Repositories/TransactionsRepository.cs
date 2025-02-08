@@ -17,7 +17,9 @@ namespace FinanceTracker.Repositories
         public async Task<Transaction> GetTransactionById(int id)
         {
             var sql = "SELECT * FROM TutorialAPISchema.Transactions WHERE Id = @Id";
+#pragma warning disable CS8603 // Possible null reference return.
             return await _dbConnection.QuerySingleOrDefaultAsync<Transaction>(sql, new { Id = id });
+#pragma warning restore CS8603 // Possible null reference return.
         }
 
         public async Task CreateTransaction(Transaction transaction)

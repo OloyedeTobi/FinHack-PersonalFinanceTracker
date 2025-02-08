@@ -18,6 +18,7 @@ namespace FinanceTracker.Repositories
         {
             var sql = "SELECT * FROM TutorialAPISchema.Accounts WHERE Id = @Id";
             return await _dbConnection.QuerySingleOrDefaultAsync<Account>(sql, new { Id = id });
+
         }
 
         public async Task CreateAccount(Account account)

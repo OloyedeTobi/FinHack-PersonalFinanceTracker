@@ -22,7 +22,6 @@ namespace FinanceTracker.Repositories
             var sql = @"EXEC TutorialAPISchema.spLoginConfirmation_Get @Email = @Email";
 
             return await _dbConnection.QuerySingleOrDefaultAsync<UserComplete>(sql, new { Email });
-
         }
 
         public async Task<UserComplete> GetUserId(string Email){

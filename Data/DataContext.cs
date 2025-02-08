@@ -28,13 +28,17 @@ namespace FinanceTracker.Data
          public T QuerySingleOrDefault<T>(string sql, object? parameters = null)
         {
             using var connection = CreateConnection();
+#pragma warning disable CS8603 // Possible null reference return.
             return connection.QuerySingleOrDefault<T>(sql, parameters);
+#pragma warning restore CS8603 // Possible null reference return.
         }
 
         public async Task<T> QuerySingleOrDefaultAsync<T>(string sql, object? parameters = null)
         {
             using var connection = CreateConnection();
+#pragma warning disable CS8603 // Possible null reference return.
             return await connection.QuerySingleOrDefaultAsync<T>(sql, parameters);
+#pragma warning restore CS8603 // Possible null reference return.
         }
 
 
