@@ -13,9 +13,23 @@ namespace FinanceTracker.Repositories
             _dbConnection = dbConnection;
         }
 
-        public async Task<UserComplete> CheckUserExists(string Email){
+        public async Task<UserComplete?> CheckUserExists(string Email){
             var sql = "SELECT Email FROM TutorialAPISchema.Auth WHERE Email = @Email";
-            return await _dbConnection.QuerySingleOrDefaultAsync<UserComplete>(sql, new { Email = Email });
+            return await _dbConnection.QuerySingleOrDefaultAsync<UserComplete>(sql, new { Email });
+        }
+
+        public async Task<UserComplete?> GetUserCredentials(string Email){
+            var sql = @"EXEC TutorialAPISchema.spLoginConfirmation_Get @Email = @Email";
+
+            return await _dbConnection.QuerySingleOrDefaultAsync<UserComplete>(sql, new { Email });
+
+        }
+
+        public async Task<UserComplete> GetUserId(string Email){
+            var sql =  @"SELECT UserId FROM TutorialAPISchema.Users WHERE Email = @Email";
+            
+            return await _dbConnection.QuerySingleOrDefaultAsync<UserComplete>(sql, new { Email });
+
         }
 
     }
