@@ -27,9 +27,9 @@ namespace FinanceTracker.Controllers
     {
         _config = config;
         _authService = authService;
-        _dapper = new DataContext(config);
-        _authHelper = new AuthHelper(config);
-        _sqlqueries = new SqlQueries(config);
+        _dapper = new(config);
+        _authHelper = new(config);
+        _sqlqueries = new(config);
         _mapper = new Mapper(new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<UserRegistrationDTO, UserComplete>();
