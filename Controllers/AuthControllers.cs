@@ -5,6 +5,8 @@ using FinanceTracker.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
+using FinanceTracker.Services;
+using System.Threading.Tasks;
 
 
 namespace FinanceTracker.Controllers
@@ -12,29 +14,42 @@ namespace FinanceTracker.Controllers
     [Authorize]
     [ApiController]
     [Route("[controller]")]
-    public class AuthController(IConfiguration config) : ControllerBase
+    public class AuthController : ControllerBase
+{
+    private readonly IConfiguration _config;
+    private readonly AuthService _authService;
+    private readonly DataContext _dapper;
+    private readonly AuthHelper _authHelper;
+    private readonly SqlQueries _sqlqueries;
+    private readonly IMapper _mapper;
+
+    public AuthController(IConfiguration config, AuthService authService)
     {
-        private readonly DataContext _dapper = new(config);
-        private readonly AuthHelper _authHelper = new(config);
-        private readonly SqlQueries _sqlqueries = new(config);
-        private readonly IMapper _mapper = new Mapper(new MapperConfiguration(cfg =>
+        _config = config;
+        _authService = authService;
+        _dapper = new DataContext(config);
+        _authHelper = new AuthHelper(config);
+        _sqlqueries = new SqlQueries(config);
+        _mapper = new Mapper(new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<UserRegistrationDTO, UserComplete>();
             }));
+    }
+
 
         [AllowAnonymous]
         [HttpPost("Register")]
-        public IActionResult Register(UserRegistrationDTO registrationDto)
+        public async Task<IActionResult> Register(UserRegistrationDTO registrationDto)
         {
             if (registrationDto.Password != registrationDto.PasswordConfirm)
             {
                 return BadRequest("Passwords do not match!");
             }
 
-            const string checkUserExistsSql = "SELECT Email FROM TutorialAPISchema.Auth WHERE Email = @Email";
-            var existingUsers = _dapper.QueryData<string>(checkUserExistsSql, new { registrationDto.Email });
+            var existingUsers = await _authService.CheckUserExists( registrationDto.Email );
 
-            if (existingUsers.Any())
+
+            if (existingUsers != null)
             {
                 return BadRequest("User with this email already exists!");
             }
@@ -61,6 +76,7 @@ namespace FinanceTracker.Controllers
             return Ok();
         }
 
+
         [HttpPut("ResetPassword")]
         public IActionResult ResetPassword(UserLoginDTO loginDTO)
         {
@@ -74,11 +90,11 @@ namespace FinanceTracker.Controllers
 
         [AllowAnonymous]
         [HttpPost("Login")]
-        public IActionResult Login(UserLoginDTO loginDTO)
+        public async Task<IActionResult> Login(UserLoginDTO loginDTO)
         {
-            const string getUserCredentialsSql = @"EXEC TutorialAPISchema.spLoginConfirmation_Get @Email = @Email";
-            var parameters = new { loginDTO.Email };
-            var userConfirmation = _dapper.QuerySingleOrDefault<UserLoginConfirmationDTO>(getUserCredentialsSql, parameters);
+            
+            var userConfirmation = await _authService.GetuserCredentials(loginDTO.Email);
+
             if (userConfirmation == null)
             {
                 return StatusCode(401, "Invalid email or password!");
@@ -91,9 +107,8 @@ namespace FinanceTracker.Controllers
             {
                 return Unauthorized("Incorrect password!");
             }
-
-            const string getUserIdSql = @"SELECT UserId FROM TutorialAPISchema.Users WHERE Email = @Email";
-            int userId = _dapper.QuerySingle<int>(getUserIdSql, new { loginDTO.Email });
+ 
+            int userId = await _authService.GetUserId(loginDTO.Email);
 
             var token = _authHelper.GenerateToken(userId);
             return Ok(new { token });
