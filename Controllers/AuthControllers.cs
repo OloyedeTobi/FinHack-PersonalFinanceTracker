@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace FinanceTracker.Controllers
 {
+
     [Authorize]
     [ApiController]
     [Route("[controller]")]
@@ -74,6 +75,7 @@ namespace FinanceTracker.Controllers
             }
 
             return Ok();
+
         }
 
 
