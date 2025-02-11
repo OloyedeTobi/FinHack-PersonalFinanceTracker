@@ -49,7 +49,6 @@ namespace FinanceTracker.Controllers
 
             var existingUsers = await _authService.CheckUserExists( registrationDto.Email );
 
-
             if (existingUsers != null)
             {
                 return BadRequest("User with this email already exists!");
@@ -67,11 +66,12 @@ namespace FinanceTracker.Controllers
             }
 
             var user = _mapper.Map<UserComplete>(registrationDto);
+            Console.WriteLine(user);
             user.Active = true;
             
             if (!_sqlqueries.UpsertUser(user))
             {
-                return StatusCode(500, "Failed to add user.");
+                return StatusCode(500, $"Failed to add user.");
             }
 
             return Ok();
