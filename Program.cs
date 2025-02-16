@@ -5,6 +5,7 @@ using FinanceTracker.Services;
 using FinanceTracker.Repositories;
 using Microsoft.Data.SqlClient;
 using System.Data;
+using FinanceTracker;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -46,6 +47,8 @@ builder.Services.AddScoped<BudgetRepository>();
 builder.Services.AddScoped<BudgetService>();  
 builder.Services.AddScoped<TransactionRepository>(); 
 builder.Services.AddScoped<TransactionService>();
+builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<UserService>();
 
 
 
