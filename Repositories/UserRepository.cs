@@ -14,22 +14,22 @@ namespace FinanceTracker.Repositories
             _dbConnection = dbConnection;
         }
 
-        public async Task<UserComplete> GetUserById(string Email)
+        public async Task<UserComplete> GetUserById(int userid)
         {
-            var sql = "SELECT * FROM TutorialAPISchema.Users WHERE Id = @Id";
-            return await _dbConnection.QuerySingleOrDefaultAsync<UserComplete>(sql, new { Email });
+            var sql = "SELECT * FROM TutorialAPISchema.Users WHERE UserId = @UserId";
+            return await _dbConnection.QuerySingleOrDefaultAsync<UserComplete>(sql, new { UserId = userid });
         }
 
         public async Task UpdateUser(UserComplete User)
         {
-            var sql = "UPDATE TutorialAPISchema.Users SET UserId = @UserId, FirstName = @LastName, Email = @Email, Gender = @Gender, JobTitle = @JobTitle, Active = @Active WHERE Id = @Id";
+            var sql = "UPDATE TutorialAPISchema.Users SET FirstName = @LastName, Email = @Email, Gender = @Gender, JobTitle = @JobTitle, Active = @Active WHERE UserId = @UserId";
             await _dbConnection.ExecuteAsync(sql, User);
         }
 
-        public async Task DeleteUser(int id)
+        public async Task DeleteUser(int userid)
         {
-            var sql = "DELETE FROM TutorialAPISchema.Users WHERE Id = @Id";
-            await _dbConnection.ExecuteAsync(sql, new { Id = id });
+            var sql = "DELETE FROM TutorialAPISchema.Users WHERE UserId = @UserId";
+            await _dbConnection.ExecuteAsync(sql, new { UserId = userid });
         }
     }
 }
